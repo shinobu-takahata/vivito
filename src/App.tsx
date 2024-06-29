@@ -1,36 +1,64 @@
-import "./index.css";
-import { useState, useEffect } from "react";
-import { Session } from "@supabase/supabase-js";
-import { Auth } from "@supabase/auth-ui-react";
-import { ThemeSupa } from "@supabase/auth-ui-shared";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import PrivateRoute from "./components/PrivateRoute";
+import Login from "./components/Login";
 import Countries from "./components/Countries";
-import { supabase } from "./supabaseClient";
+// import Register from './components/Register';
+// import PasswordReset from './components/PasswordReset';
+// import Profile from './components/Profile';
+// import Dashboard from './components/Dashboard';
+// import Education from './components/Education';
+// import WorkExperience from './components/WorkExperience';
+// import Skills from './components/Skills';
+// import Certifications from './components/Certifications';
+// import Projects from './components/Projects';
 
-export default function App() {
-  const [session, setSession] = useState<Session | null>(null);
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  return !session ? (
-    // Authコンポーネントにmax-widthを指定
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="w-full max-w-md">
-        <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />
+function App() {
+  return (
+    <Router>
+      <div>
+        {/* <nav>
+          <ul>
+            <li>
+              <Link to="/dashboard">Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/profile">Profile</Link>
+            </li>
+            <li>
+              <Link to="/education">Education</Link>
+            </li>
+            <li>
+              <Link to="/work-experience">Work Experience</Link>
+            </li>
+            <li>
+              <Link to="/skills">Skills</Link>
+            </li>
+            <li>
+              <Link to="/certifications">Certifications</Link>
+            </li>
+            <li>
+              <Link to="/projects">Projects</Link>
+            </li>
+          </ul>
+        </nav> */}
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/countries" element={<Countries />} />
+          </Route>
+          {/* <Route path="/register" element={<Register />} />
+          <Route path="/password-reset" element={<PasswordReset />} />
+          <Route path="/profile" element={<PrivateRoute component={Profile} />} />
+          <Route path="/dashboard" element={<PrivateRoute component={Dashboard} />} />
+          <Route path="/education" element={<PrivateRoute component={Education} />} />
+          <Route path="/work-experience" element={<PrivateRoute component={WorkExperience} />} />
+          <Route path="/skills" element={<PrivateRoute component={Skills} />} />
+          <Route path="/certifications" element={<PrivateRoute component={Certifications} />} />
+          <Route path="/projects" element={<PrivateRoute component={Projects} />} /> */}
+        </Routes>
       </div>
-    </div>
-  ) : (
-    <Countries />
+    </Router>
   );
 }
+
+export default App;
