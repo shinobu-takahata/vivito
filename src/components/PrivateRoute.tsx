@@ -1,16 +1,24 @@
-import { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import useAuthStore from "../store/useAuthStore";
+import { useQuery } from "@tanstack/react-query";
+import { getAuth } from "../feature/auth";
+import { User } from "@supabase/supabase-js";
 
 export default function PrivateRoute() {
-  const { user, loading, checkAuth } = useAuthStore();
+  const {
+    data: user,
+    isLoading,
+    isError,
+  } = useQuery<User | null, Error>({
+    queryKey: ["auth_user"],
+    queryFn: getAuth,
+  });
 
-  useEffect(() => {
-    checkAuth();
-  }, [checkAuth]);
-
-  if (loading) {
+  if (isLoading) {
     return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <Navigate to="/" />;
   }
 
   return user ? <Outlet /> : <Navigate to="/" />;
