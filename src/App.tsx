@@ -23,9 +23,14 @@ export default function App() {
     return () => subscription.unsubscribe();
   }, []);
 
-  if (!session) {
-    return <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />;
-  } else {
-    return <Countries />;
-  }
+  return !session ? (
+    // Authコンポーネントにmax-widthを指定
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="w-full max-w-md">
+        <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />
+      </div>
+    </div>
+  ) : (
+    <Countries />
+  );
 }
