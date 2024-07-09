@@ -13,6 +13,10 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     queryFn: getAuth,
   });
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   if (!user) {
     return (
       <Navigate
