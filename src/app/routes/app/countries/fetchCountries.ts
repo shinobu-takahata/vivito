@@ -1,21 +1,12 @@
-import { supabase } from "@/supabaseClient";
-import { QueryClient, QueryKey, QueryFunction } from "@tanstack/react-query";
-
-interface Country {
-  id: number;
-  name: string;
-}
-
-async function fetchCountries(): Promise<Country[]> {
-  const { data, error } = await supabase.from("countries").select();
-  if (error) throw new Error(error.message);
-  return data as Country[];
-}
+import { getCountriesQueryOptions } from "@/feature/country/get-countries";
+import { QueryClient } from "@tanstack/react-query";
 
 export const countriesLoader = (queryClient: QueryClient) => async () => {
-  const queryKey: QueryKey = ["countries"];
-  const queryFn: QueryFunction<Country[]> = fetchCountries;
+  const query = getCountriesQueryOptions()
 
-  const data = queryClient.getQueryData(queryKey) ?? await queryClient.fetchQuery({queryKey, queryFn});
+  const data = queryClient.getQueryData(query.queryKey) ?? await queryClient.fetchQuery(query);
   return { countries: data };
 };
+
+
+
