@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Session } from "@supabase/supabase-js";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
-import { supabase } from "../supabaseClient";
+import { supabase } from "../../supabaseClient";
 import { Navigate } from "react-router-dom";
 
 export default function Login() {

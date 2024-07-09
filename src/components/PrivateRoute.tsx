@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getAuth } from "../feature/auth";
+import { getAuth } from "../feature/auth/auth";
 import { User } from "@supabase/supabase-js";
 
 export default function PrivateRoute() {

@@ -1,8 +1,9 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
-import Login from "./components/Login";
+import Login from "./feature/auth/Login";
 import Countries from "./components/Countries";
+import Layout from "./components/Layout";
 // import Register from './components/Register';
 // import PasswordReset from './components/PasswordReset';
 // import Profile from './components/Profile';
@@ -20,35 +21,30 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Router>
         <div>
-          {/* <nav>
-            <ul>
-              <li>
-                <Link to="/dashboard">Dashboard</Link>
-              </li>
-              <li>
-                <Link to="/profile">Profile</Link>
-              </li>
-              <li>
-                <Link to="/education">Education</Link>
-              </li>
-              <li>
-                <Link to="/work-experience">Work Experience</Link>
-              </li>
-              <li>
-                <Link to="/skills">Skills</Link>
-              </li>
-              <li>
-                <Link to="/certifications">Certifications</Link>
-              </li>
-              <li>
-                <Link to="/projects">Projects</Link>
-              </li>
-            </ul>
-          </nav> */}
           <Routes>
             <Route path="/" element={<Login />} />
-            <Route element={<PrivateRoute />}>
+            <Route
+              element={
+                <Layout>
+                  <PrivateRoute />
+                </Layout>
+              }
+            >
               <Route path="/countries" element={<Countries />} />
+            </Route>
+
+            <Route element={<PrivateRoute />}>
+              <Route
+                path="/*"
+                element={
+                  <Layout>
+                    <Routes>
+                      <Route path="/countries" element={<Countries />} />
+                      {/* 他のルートをここに追加 */}
+                    </Routes>
+                  </Layout>
+                }
+              />
             </Route>
             {/* <Route path="/register" element={<Register />} />
           <Route path="/password-reset" element={<PasswordReset />} />
