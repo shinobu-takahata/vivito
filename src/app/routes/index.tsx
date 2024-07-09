@@ -1,30 +1,30 @@
-import { QueryClient } from "@tanstack/react-query";
-import { createBrowserRouter } from "react-router-dom";
+import { QueryClient } from '@tanstack/react-query';
+import { createBrowserRouter } from 'react-router-dom';
 
-import { ProtectedRoute } from "@/lib/auth";
+import { ProtectedRoute } from '@/lib/auth';
 
-import { AppRoot } from "./app/root";
-import { countriesLoader } from "./app/countries/fetchCountries";
+import { AppRoot } from './app/root';
+import { countriesLoader } from './app/countries/fetchCountries';
 // import { usersLoader } from "./app/users";
 
 export const createRouter = (queryClient: QueryClient) =>
   createBrowserRouter([
     {
-      path: "/",
+      path: '/',
       lazy: async () => {
-        const { LoginRoute } = await import("@/app/routes/auth/login");
+        const { LoginRoute } = await import('@/app/routes/auth/login');
         return { Component: LoginRoute };
       },
     },
     {
-      path: "/auth/login",
+      path: '/auth/login',
       lazy: async () => {
-        const { LoginRoute } = await import("@/app/routes/auth/login");
+        const { LoginRoute } = await import('@/app/routes/auth/login');
         return { Component: LoginRoute };
       },
     },
     {
-      path: "/app",
+      path: '/app',
       element: (
         <ProtectedRoute>
           <AppRoot />
@@ -32,10 +32,10 @@ export const createRouter = (queryClient: QueryClient) =>
       ),
       children: [
         {
-          path: "countries",
+          path: 'countries',
           lazy: async () => {
             const { CountriesRoute } = await import(
-              "./app/countries/Countries"
+              './app/countries/Countries'
             );
             return { Component: CountriesRoute };
           },

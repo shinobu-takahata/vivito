@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { Session } from "@supabase/supabase-js";
-import { Auth } from "@supabase/auth-ui-react";
-import { ThemeSupa } from "@supabase/auth-ui-shared";
-import { supabase } from "@/supabaseClient";
-import { Navigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { Session } from '@supabase/supabase-js';
+import { Auth } from '@supabase/auth-ui-react';
+import { ThemeSupa } from '@supabase/auth-ui-shared';
+import { supabase } from '@/supabaseClient';
+import { Navigate } from 'react-router-dom';
 
 export function LoginRoute() {
   const [session, setSession] = useState<Session | null>(null);

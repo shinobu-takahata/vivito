@@ -1,7 +1,7 @@
-import Layout from "@/components/Layout";
-import { Suspense } from "react";
-import { ErrorBoundary } from "react-error-boundary";
-import { Outlet, useLocation } from "react-router-dom";
+import Layout from '@/components/Layout';
+import { Suspense } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+import { Outlet, useLocation } from 'react-router-dom';
 Layout;
 // import { Spinner } from '@/components/ui/spinner';
 
