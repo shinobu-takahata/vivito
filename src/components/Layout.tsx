@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Menu, MenuItem, Flex, Heading, View } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
-import "tailwindcss/tailwind.css";
+import { useState } from 'react';
+import { Menu, MenuItem, Flex, Heading, View } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+import 'tailwindcss/tailwind.css';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -64,7 +64,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
     <View
       as="nav"
       className={`bg-gray-100 w-64 fixed lg:relative transform lg:translate-x-0 transition-transform h-screen lg:h-auto z-20 ${
-        isOpen ? "translate-x-0" : "-translate-x-64"
+        isOpen ? 'translate-x-0' : '-translate-x-64'
       }`}
     >
       <ul className="h-full overflow-auto">
@@ -87,7 +87,7 @@ const MainContent: React.FC<MainContentProps> = ({
 }) => {
   return (
     <View flex="1" padding="1rem" className="relative">
-      <div className={`relative ${isSidebarOpen ? "z-20" : ""}`}>
+      <div className={`relative ${isSidebarOpen ? 'z-20' : ''}`}>
         {children}
       </div>
     </View>
