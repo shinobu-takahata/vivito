@@ -1,9 +1,9 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import PrivateRoute from "./components/PrivateRoute";
-import Login from "./feature/auth/Login";
-import Countries from "./components/Countries";
-import Layout from "./components/Layout";
+import PrivateRoute from "@/components/PrivateRoute";
+import Login from "@/feature/auth/Login";
+import Countries from "@/feature/country/Countries";
+import Layout from "@/components/Layout";
 // import Register from './components/Register';
 // import PasswordReset from './components/PasswordReset';
 // import Profile from './components/Profile';

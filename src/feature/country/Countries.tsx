@@ -1,4 +1,4 @@
-import { supabase } from "../supabaseClient";
+import { supabase } from "../../supabaseClient";
 import { useQuery } from "@tanstack/react-query";
 interface Country {
   id: number;
