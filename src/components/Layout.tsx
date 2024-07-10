@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Menu, MenuItem, Flex, Heading, View } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import 'tailwindcss/tailwind.css';
+import { NavLink } from 'react-router-dom';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -68,8 +69,16 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
       }`}
     >
       <ul className="h-full overflow-auto">
-        <li className="p-2">Option 1</li>
-        <li className="p-2">Option 2</li>
+        <li className="p-2">
+          <NavLink key="countries" to="./countries">
+            countries
+          </NavLink>
+        </li>
+        <li className="p-2">
+          <NavLink key="example" to="./example">
+            example
+          </NavLink>{' '}
+        </li>
         <li className="p-2">Option 3</li>
       </ul>
     </View>

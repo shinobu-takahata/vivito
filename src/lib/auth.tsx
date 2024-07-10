@@ -13,11 +13,9 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     queryFn: getAuth,
   });
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  if (isLoading) return;
 
-  if (!user) {
+  if (!user && !isLoading) {
     return (
       <Navigate
         to={`/auth/login?redirectTo=${encodeURIComponent(location.pathname)}`}

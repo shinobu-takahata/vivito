@@ -5,6 +5,7 @@ import { ProtectedRoute } from '@/lib/auth';
 
 import { AppRoot } from './app/root';
 import { countriesLoader } from './app/countries/fetchCountries';
+import { exampleLoader } from './app/example/fetchExample';
 // import { usersLoader } from "./app/users";
 
 export const createRouter = (queryClient: QueryClient) =>
@@ -40,6 +41,14 @@ export const createRouter = (queryClient: QueryClient) =>
             return { Component: CountriesRoute };
           },
           loader: countriesLoader(queryClient),
+        },
+        {
+          path: 'example',
+          lazy: async () => {
+            const { ExampleRoute } = await import('./app/example/example');
+            return { Component: ExampleRoute };
+          },
+          loader: exampleLoader(),
         },
       ],
     },

@@ -9,14 +9,7 @@ export const AppRoot = () => {
   const location = useLocation();
   return (
     <Layout>
-      <Suspense
-        fallback={
-          <div className="flex size-full items-center justify-center">
-            loading...
-            {/* <Spinner size="xl" /> */}
-          </div>
-        }
-      >
+      <Suspense fallback={<div>NowLoading ...</div>}>
         <ErrorBoundary
           key={location.pathname}
           fallback={<div>Something went wrong!</div>}

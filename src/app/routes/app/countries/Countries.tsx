@@ -1,4 +1,4 @@
-import { useCounries } from "@/feature/country/get-countries";
+import { useCounries } from '@/feature/country/get-countries';
 interface Country {
   id: number;
   name: string;
