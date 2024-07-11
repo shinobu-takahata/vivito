@@ -1,4 +1,4 @@
-import { getCountriesQueryOptions } from '@/feature/country/get-countries';
+import { getCountriesQueryOptions } from '@/feature/country/api/get-countries';
 import { QueryClient } from '@tanstack/react-query';
 
 export const countriesLoader = (queryClient: QueryClient) => async () => {

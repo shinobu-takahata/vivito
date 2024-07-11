@@ -1,60 +1,41 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { supabase } from '@/supabaseClient';
 import { Button, TextField, View } from '@aws-amplify/ui-react';
-import { Link, useNavigate } from 'react-router-dom';
-const createCommentInputSchema = z.object({
-  countryName: z.string().min(1, 'Required'),
-});
-// フォームの入力データの型定義
-type CreateCommentInput = z.infer<typeof createCommentInputSchema>;
+import { Link } from 'react-router-dom';
+import {
+  CreateCommentInput,
+  createCountryInputSchema,
+  useCreateCountry,
+} from '@/feature/country/api/create-country';
+import { navigate } from '@/lib/react-router';
 
-// Supabaseに国を登録する関数
-const addCountry = async (data: { name: string }) => {
-  const { data: insertedData, error } = await supabase
-    .from('countries')
-    .insert([{ name: data.name }]);
-
-  if (error) {
-    throw new Error(error.message);
-  }
-
-  return insertedData;
-};
 export function CreateCountriesRoute() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    // formState: { errors },
   } = useForm<CreateCommentInput>({
-    resolver: zodResolver(createCommentInputSchema),
+    resolver: zodResolver(createCountryInputSchema),
   });
-
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
-  const mutation = useMutation({
-    mutationFn: addCountry,
-    onSuccess: () => {
-      // 登録成功時にキャッシュを無効化
-      queryClient.invalidateQueries({ queryKey: ['countries'] });
-      navigate('/app/countries');
+  // const navigate = useNavigate();
+  const createCountryMutation = useCreateCountry({
+    mutationConfig: {
+      onSuccess: () => {
+        navigate('/app/countries');
+      },
     },
   });
 
   const onSubmit: SubmitHandler<CreateCommentInput> = async (data) => {
     try {
-      const input = { name: data.countryName };
-      await mutation.mutateAsync({ name: data.countryName });
       // APIを呼び出す部分（適切なGraphQLミューテーションを定義する必要があります）
       // await API.graphql(graphqlOperation(createCountry, { input }));
-      console.log('Country registered:', input);
+      createCountryMutation.mutate(data);
+      console.log('Country registered:', data);
     } catch (error) {
       console.error('Error registering country:', error);
     }
   };
-
   return (
     <View
       as="form"

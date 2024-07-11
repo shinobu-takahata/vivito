@@ -1,4 +1,4 @@
-import { useCounries } from '@/feature/country/get-countries';
+import { useCounries } from '@/feature/country/api/get-countries';
 import { Button } from '@aws-amplify/ui-react';
 import { Link } from 'react-router-dom';
 interface Country {
@@ -13,7 +13,7 @@ export function CountriesRoute() {
       <div>
         <ul className="grid grid-cols-2 gap-4">
           {countries.data?.map((country: Country) => (
-            <li key={country.name}>{country.name}</li>
+            <li key={country.id}>{country.name}</li>
           ))}
         </ul>
         <div className="flex justify-end mt-5">
