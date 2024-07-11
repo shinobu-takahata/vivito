@@ -43,6 +43,16 @@ export const createRouter = (queryClient: QueryClient) =>
           loader: countriesLoader(queryClient),
         },
         {
+          path: 'countries/create',
+          lazy: async () => {
+            const { CreateCountriesRoute } = await import(
+              './app/countries/CreateCountries'
+            );
+            return { Component: CreateCountriesRoute };
+          },
+          // loader: countriesLoader(queryClient),
+        },
+        {
           path: 'example',
           lazy: async () => {
             const { ExampleRoute } = await import('./app/example/example');
